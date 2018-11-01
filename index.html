@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5LITROV • Доставка алкоголя</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	
+	<header>
+		<div class="head-bground">
+		<div class="h-top">
+			<span class="phone"><a href="tel:+380931339445">+38 (094) 133 94 45</a></span>
+			<span class="e-mail"><a href="mailto:5Litrov@gmail.com?subject=SweetDrinks">5Litrov@gmail.com</a></span>
+			<input type="submit" class="order-btn1" name="order-top" value="Заказать">
+		</div>
+		
+			<div class="h-bottom">
+				<img class="logo" src="img/logo.png">
+				<span>доставка алкоголя быстро и вкусно</span>
+			</div>
+		</div>
+	</header>
+	<main>
+		<div class="icon">
+			<h2 class="icon-title">нас выбирают и любят за наши качества</h2>
+			<img src="img/qb1.png" alt="Чистота продукта" class="icon-img">
+			<img src="img/qb2.png" alt="Качественный сервис" class="icon-img">
+			<img src="img/qb3.png" alt="Лучшая цена" class="icon-img">
+			<img src="img/qb4.png" alt="Оригинальный вкус" class="icon-img">
+		</div>
+		<div class="order">
+			<h2 class="order-title">простой способ получить желанное</h2>
+			  <form action="#" method="post">
+			  <div id="app">
+			   	<p>
+			   		<select  v-model="user_selected_options.item" @change="retotal">
+          				<option value="" selected disabled>НАПИТОК</option>
+          				<option v-for="(item, key) in items" :value="key">{{ item.name }}  цена: {{ item.price.toFixed(2) }} грн.</option>
+        			</select>
+			   	</p>
+			   	<p>
+			   		<select v-model="user_selected_options.quantity" :disabled="!user_selected_options.item" @change="retotal">
+			   		
+          				<option value="" selected disabled>КОЛИЧЕСТВО</option>
+          				<option v-for="(quantity, key) in quantities" :value="key">{{ quantity.quantity }}</option>
+        			</select>
+			   	</p>
+			   	<p class="total"><span>Итого:</span> {{ total.toFixed(2) + 'грн.' }} </p>
+			   <p><input class="order-btn2" type="submit" value="Сделать заказ" :disabled="!user_selected_options.quantity"></p>
+			   </div>
+			  </form>
+			  <span class="ice-img"><img src="img/ice_gelo_1.png"></span>
+			  <span class="glass-img"><img src="img/69whisky.png"></span>
+		</div>
+		<section class="info">
+			<h2 class="list-title">предлагаем вам</h2>
+			<ul class="list">
+				<li>Качественный и не дорогой алкоголь на любой вкус и кошелек</li>
+				<li>Поставка напрямую от завода-изготовителя в день заказа</li>
+				<li>Элитный алкоголь по низким ценам скрасит вши будни и праздники</li>
+				<li>Ароматы и вкусы приятно удивят, не содержит технический и кондитерский спирт</li>
+				<li>Приятно пьется и голова не болит</li>
+			</ul>
+		</section>
+		<div class="feedback">
+			<h2 class="feedback-title">наши клиенты всегда довольны</h2>
+			<section class="feedback">
+				<div class="fb-div-img"><img class="fb-img1" src="img/jason.jpg"></div><q>Пьется охотно,шатает добротно.</q><p>- Джейсон, 47 лет,<br> слесарь</p>
+			</section>
+			<section class="feedback">
+				<div class="fb-div-img"><img class="fb-img2" src="img/gwen.jpg"></div><q>Все гастроли начинаются с этих напитков.</q><p>- Гвэн, 39 лет,<br> мэнеджер</p>
+			</section>
+			<section class="feedback">
+				<div class="fb-div-img"><img class="fb-img3" src="img/tarantino.jpg"></div><q>От заката до рассвета пью с радостью это.</q><p>- Квентин, 27 лет,<br> охранник</p>
+			</section>
+		</div>
+	</main>
+	<footer>
+		<div class="f-top">
+			<img class="logo" src="img/logo.png">
+			<span>доставка алкоголя быстро и вкусно</span>
+			<input type="submit" class="order-btn3" name="order-bott" value="Заказать">
+		</div>
+		<div class="f-bottom">
+			<span class="copyright">©PseshDesign 2018</span>
+			<span class="phone"><a href="tel:+380931339445">+38 (094) 133 94 45</a></span>
+			<span class="e-mail"><a href="mailto:5Litrov@gmail.com?subject=SweetDrinks">5Litrov@gmail.com</a></span>
+			
+		</div>
+	</footer>
+	<script>
+new Vue({
+  el: '#app',
+  data: {
+    items: {
+      rum: {name: 'Ром', price: 350,},
+      cogn: {name: 'Коньяк', price: 300},
+      vodka: {name: 'Водка', price: 250},
+     
+    },
+    quantities: {
+      one: {quantity: '1', price: 1},
+      two: {quantity: '2', price: 2},
+      three: {quantity: '3', price: 3},
+      four: {quantity: '4', price: 4},
+      five: {quantity: '5', price: 5},
+      
+    },
+    
+    user_selected_options: {
+      item: '',
+      quantity: ''
+
+      // quantity: 0
+    },
+    total: 0
+  },
+  methods: {
+    retotal: function() {
+      let newTotal = 0;
+      if(this.user_selected_options.item) {
+        newTotal = newTotal + this.items[this.user_selected_options.item].price;
+      }
+      if(this.user_selected_options.quantity != '') {
+        newTotal = newTotal * this.quantities[this.user_selected_options.quantity].price;
+      }
+
+      this.total = newTotal;
+    }
+  }
+});
+	</script>
+</body>
+</html>
